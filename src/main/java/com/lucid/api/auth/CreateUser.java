@@ -7,10 +7,6 @@ import javax.validation.constraints.NotBlank;
 import java.util.Date;
 
 public class CreateUser {
-    public String providerId;
-    public Provider provider;
-    public String image;
-
     @NotBlank(message = "firstName is required")
     public String firstName;
 
@@ -21,6 +17,10 @@ public class CreateUser {
     @Email(message = "email must be valid")
     public String email;
 
-    public Date dob;
+    @NotBlank(message = "password is required")
     public String password;
+
+    public Provider provider = Provider.LOCAL;
+    public String image;
+    public Date dob;
 }

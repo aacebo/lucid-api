@@ -12,7 +12,6 @@ public class User {
     @Id
     public String id;
 
-    public String providerId;
     public Provider provider;
     public String image;
     public String firstName;
@@ -20,6 +19,7 @@ public class User {
     public String password;
     public String email;
     public Date dob;
+    public Date lastLoggedInAt;
     public Date removedAt;
 
     @CreatedDate
@@ -28,7 +28,6 @@ public class User {
     public User() { }
 
     public User(CreateUser createUser) {
-        this.providerId = createUser.providerId;
         this.provider = createUser.provider;
         this.image = createUser.image;
         this.firstName = createUser.firstName;
