@@ -1,7 +1,7 @@
 import * as Koa from 'koa';
 import * as boom from '@hapi/boom';
 
-import { UserModel } from '../../user.entity';
+import { UserModel } from '../../../user/user.entity';
 
 export async function create(ctx: Koa.ParameterizedContext<any>, next: () => Promise<any>) {
   const user = await UserModel.findOne({ email: ctx.request.body.email });

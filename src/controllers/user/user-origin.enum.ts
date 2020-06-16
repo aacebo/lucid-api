@@ -1,3 +1,5 @@
 export enum UserOrigin {
-  Local = 'L',
+  LOCAL = 'local',
+  GOOGLE = 'google',
+  FACEBOOK = 'facebook'
 }

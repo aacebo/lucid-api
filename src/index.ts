@@ -40,7 +40,7 @@ mongoose.connect(Config.instance.env.db, {
   app.use(middleware.auth);
 
   app.use(controllers.user.routes())
-     .use(controllers.login.routes());
+     .use(controllers.auth.routes());
 
   app.use(middleware.logger)
      .use(middleware.response);

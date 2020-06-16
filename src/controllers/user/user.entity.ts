@@ -6,7 +6,7 @@ import { capitalize } from '../../core/utils';
 
 export class User {
   readonly _id: string | mongoose.Types.ObjectId;
-  image: string | mongoose.Types.ObjectId;
+  image: string;
   readonly origin: UserOrigin;
   email: string;
   firstName: string;
@@ -27,11 +27,8 @@ export interface IUserDocument extends User, mongoose.Document {
 }
 
 export const UserModel = mongoose.model<IUserDocument>('User', new mongoose.Schema<User>({
-  image: {
-    type: mongoose.Types.ObjectId,
-    ref: 'Attachment'
-  },
-  origin: { type: UserOrigin, default: UserOrigin.Local, required: true },
+  image: { type: String },
+  origin: { type: UserOrigin, default: UserOrigin.LOCAL, required: true },
   email: { type: String, required: true },
   firstName: { type: String, required: true, set: capitalize },
   lastName: { type: String, required: true , set: capitalize },

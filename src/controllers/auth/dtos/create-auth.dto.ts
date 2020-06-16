@@ -1,6 +1,6 @@
 import * as joi from '@hapi/joi';
 
-export const CREATE_USER = joi.object().keys({
+export const CREATE_AUTH = joi.object().keys({
   origin: joi.string().length(1),
   email: joi.string().email().required(),
   firstName: joi.string().min(3).max(100).required(),

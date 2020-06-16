@@ -7,7 +7,7 @@ import { UserModel } from '../../../user';
 import { Config } from '../../../../core/config';
 import { ILoginPayload } from '../../login-payload.interface';
 
-export async function login(ctx: Koa.ParameterizedContext<any>, next: () => Promise<any>) {
+export async function update(ctx: Koa.ParameterizedContext<any>, next: () => Promise<any>) {
   const user = await UserModel.findOne({
     email: ctx.request.body.email,
     password: md5(ctx.request.body.password),
