@@ -2,23 +2,12 @@ import { User } from '../../controllers';
 
 const EXPIRATION_MS = 5 * 60 * 1000;
 
-export class Cache {
-  private static _instance: Cache;
+class Cache {
   private _cache: { [id: string]: { user: User, exp: number } } = { };
-
-  static get instance() {
-    if (!this._instance) {
-        this._instance = new Cache();
-    }
-
-    return this._instance;
-  }
 
   private get _timestamp() {
     return new Date().getTime();
   }
-
-  private constructor() { }
 
   has(id: string) {
     return this._cache[id] !== undefined;
@@ -47,3 +36,5 @@ export class Cache {
     }
   }
 }
+
+export default new Cache();

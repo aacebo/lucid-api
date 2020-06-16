@@ -2,23 +2,23 @@ import * as Koa from 'koa';
 import * as jwt from 'jsonwebtoken';
 import * as boom from '@hapi/boom';
 
-import { Config } from '../../config';
-import { Cache } from '../../cache';
+import Config from '../../config/config';
+import Cache from '../../cache/cache';
 import { Logger } from '../../logger';
 import { ILoginPayload, UserModel } from '../../../controllers';
 
 export async function auth(ctx: Koa.ParameterizedContext<any>, next: () => Promise<any>) {
   if (ctx.path !== '/auth') {
     try {
-      const payload = jwt.verify(ctx.get('Authorization').replace('Bearer ', ''), Config.instance.env.secret) as ILoginPayload;
+      const payload = jwt.verify(ctx.get('Authorization').replace('Bearer ', ''), Config.env.secret) as ILoginPayload;
 
       if (payload) {
-        ctx.user = Cache.instance.get(payload.id);
+        ctx.user = Cache.get(payload.id);
       }
 
       if (payload && !ctx.user) {
         ctx.user = (await UserModel.findById(payload.id)).toJSON();
-        Cache.instance.set(payload.id, ctx.user);
+        Cache.set(payload.id, ctx.user);
       }
 
       if (!payload || !ctx.user) {

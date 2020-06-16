@@ -8,27 +8,27 @@ import * as cors from '@koa/cors';
 import * as mongoose from 'mongoose';
 
 import { Fixtures } from './fixtures';
-import { Config } from './core/config';
+import Config from './core/config/config';
 import { Logger } from './core/logger';
 import { printObject } from './core/utils';
 import * as middleware from './core/middleware';
 import * as controllers from './controllers';
 
-mongoose.connect(Config.instance.env.db, {
+mongoose.connect(Config.env.db, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
   useCreateIndex: true,
 }).then(async () => {
   const app = new Koa();
   const router = new Router();
-  const port = process.env.PORT || 3000;
+  const port = Config.env.port || 3000;
 
   printObject({
     port,
-    env: Config.instance.env.env || 'prod',
+    env: Config.env.env || 'prod',
   });
 
-  if (!Config.instance.isProduction) {
+  if (!Config.isProduction) {
     Logger.warn(`Initializing fixtures...`);
     await Fixtures.initialize();
   }

@@ -4,7 +4,7 @@ import * as jwt from 'jsonwebtoken';
 import * as boom from '@hapi/boom';
 
 import { UserModel } from '../../../user';
-import { Config } from '../../../../core/config';
+import Config from '../../../../core/config/config';
 import { ILoginPayload } from '../../login-payload.interface';
 
 export async function update(ctx: Koa.ParameterizedContext<any>, next: () => Promise<any>) {
@@ -25,7 +25,7 @@ export async function update(ctx: Koa.ParameterizedContext<any>, next: () => Pro
     ctx.body = jwt.sign({
       id: ret.id,
       email: ret.email,
-    } as ILoginPayload, Config.instance.env.secret);
+    } as ILoginPayload, Config.env.secret);
   }
 
   await next();
