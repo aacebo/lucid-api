@@ -7,13 +7,8 @@ import { Cache } from '../../cache';
 import { Logger } from '../../logger';
 import { ILoginPayload, UserModel } from '../../../controllers';
 
-const NO_AUTH_PATHS: { [path: string]: string } = {
-  '/login': 'PATCH',
-  '/user': 'POST',
-};
-
 export async function auth(ctx: Koa.ParameterizedContext<any>, next: () => Promise<any>) {
-  if (NO_AUTH_PATHS[ctx.path] !== ctx.method) {
+  if (ctx.path !== '/auth') {
     try {
       const payload = jwt.verify(ctx.get('Authorization').replace('Bearer ', ''), Config.instance.env.secret) as ILoginPayload;
 
@@ -22,7 +17,7 @@ export async function auth(ctx: Koa.ParameterizedContext<any>, next: () => Promi
       }
 
       if (payload && !ctx.user) {
-        ctx.user = await UserModel.findById(payload.id).lean();
+        ctx.user = (await UserModel.findById(payload.id)).toJSON();
         Cache.instance.set(payload.id, ctx.user);
       }
 

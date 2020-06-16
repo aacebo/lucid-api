@@ -6,4 +6,5 @@ export const CREATE_AUTH = joi.object().keys({
   firstName: joi.string().min(3).max(100).required(),
   lastName: joi.string().min(3).max(100).required(),
   password: joi.string().required(),
+  dob: joi.date(),
 });

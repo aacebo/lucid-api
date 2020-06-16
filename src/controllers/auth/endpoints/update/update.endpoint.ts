@@ -18,7 +18,7 @@ export async function update(ctx: Koa.ParameterizedContext<any>, next: () => Pro
     const error = boom.notFound().output.payload;
     ctx.throw(error.statusCode, 'user not found');
   } else {
-    user.lastLoginAt = new Date();
+    user.lastLoggedInAt = new Date();
     const ret = await user.save();
 
     ctx.user = ret;
