@@ -1,4 +1,5 @@
 import * as Koa from 'koa';
+import * as md5 from 'md5';
 import * as boom from '@hapi/boom';
 
 import { UserModel } from '../../../user/user.entity';
@@ -12,6 +13,7 @@ export async function create(ctx: Koa.ParameterizedContext<any>, next: () => Pro
   } else {
     const res = new UserModel({
       ...ctx.request.body,
+      password: md5(ctx.request.body.password),
     });
 
     ctx.body = await res.save();
