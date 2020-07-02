@@ -8,5 +8,5 @@ export const DEV_USER: Partial<User> = {
   email: 'dev@dev.com',
   firstName: 'Dev',
   lastName: 'Dev',
-  password: md5('dev'),
+  password: md5('testing123!'),
 };

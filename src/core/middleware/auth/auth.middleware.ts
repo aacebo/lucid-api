@@ -8,7 +8,7 @@ import { Logger } from '../../logger';
 import { ILoginPayload, UserModel } from '../../../controllers';
 
 export async function auth(ctx: Koa.ParameterizedContext<any>, next: () => Promise<any>) {
-  if (ctx.path !== '/auth') {
+  if (ctx.path.split('/')[1] !== 'auth') {
     try {
       const payload = jwt.verify(ctx.get('Authorization').replace('Bearer ', ''), Config.env.secret) as ILoginPayload;
 
