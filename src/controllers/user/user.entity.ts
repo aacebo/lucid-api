@@ -29,7 +29,7 @@ export interface IUserDocument extends User, mongoose.Document {
 
 export const UserModel = mongoose.model<IUserDocument>('User', new mongoose.Schema<User>({
   image: { type: String },
-  origin: { type: UserOrigin, default: UserOrigin.LOCAL, required: true },
+  origin: { type: UserOrigin, default: UserOrigin.Local, required: true },
   email: { type: String, required: true },
   firstName: { type: String, required: true, set: capitalize },
   lastName: { type: String, required: true , set: capitalize },
